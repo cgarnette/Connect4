@@ -1,5 +1,7 @@
 package connect4;
 
+import java.awt.Color;
+
 public class Timer extends Thread{
 
 	private Player a, b;
@@ -51,24 +53,32 @@ public class Timer extends Thread{
 				}
 			}
 			
-			if(!driver.moved){
-				driver.AI.Move();
+			if(driver.getGameState()) {
+				
+				if(!driver.moved){
+					driver.AI.Move();
+				}
+				a.myTurn = !a.myTurn;
+				b.myTurn = !b.myTurn;
+				System.out.println("Switch");
+				
+				if(a.myTurn) {
+					driver.gameInfo.setText("Player: " + a.name + " Turn to Move");
+					current = a;
+				}else {
+					driver.gameInfo.setText("Player: " + b.name + " Turn to Move");
+					current = b;
+				}
+				
+				clicked = false;
+				
 			}
-			a.myTurn = !a.myTurn;
-			b.myTurn = !b.myTurn;
-			System.out.println("Switch");
-			
-			if(a.myTurn) {
-				driver.gameInfo.setText("Player: " + a.name + " Turn to Move");
-				current = a;
-			}else {
-				driver.gameInfo.setText("Player: " + b.name + " Turn to Move");
-				current = b;
-			}
-			
-			clicked = false;
 			
 		}
+		
+		driver.gameInfo.setText(current.name + " Wins!");
+		driver.gameInfo.setForeground(Color.WHITE);
+		System.out.println("End of the run");
 		
 	}
 

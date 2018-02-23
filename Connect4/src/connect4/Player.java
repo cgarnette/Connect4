@@ -42,7 +42,7 @@ public class Player implements Comparable<Player>{
 					if(mySpots.contains(new Spot(coords, (s.index + 14)))) score += 1;
 					if(mySpots.contains(new Spot(coords, (s.index + 21)))) score += 1;
 					
-					if(score == 3) winner = true; break;
+					if(score == 3) {winner = true; break;}
 					
 				}catch(IndexOutOfBoundsException e){}//do nothing
 				try {
@@ -52,7 +52,7 @@ public class Player implements Comparable<Player>{
 						if(mySpots.contains(new Spot(coords, (s.index + 16)))) score+=1;
 						if(mySpots.contains(new Spot(coords, (s.index + 24)))) score+=1;
 						
-						if(score == 3) winner = true; break;
+						if(score == 3) { winner = true; break;}
 					}
 				}catch(IndexOutOfBoundsException e) {}//do nothing
 				try {
@@ -62,7 +62,7 @@ public class Player implements Comparable<Player>{
 						if(mySpots.contains(new Spot(coords, (s.index - 2)))) score+=1;
 						if(mySpots.contains(new Spot(coords, (s.index - 3)))) score+=1;
 						
-						if(score == 3) winner = true; break;
+						if(score == 3) { winner = true; break;}
 					}
 				}catch(IndexOutOfBoundsException e) {}//do nothing
 				
@@ -73,12 +73,11 @@ public class Player implements Comparable<Player>{
 						if(mySpots.contains(new Spot(coords, (s.index + 18)))) score+=1;
 						if(mySpots.contains(new Spot(coords, (s.index + 27)))) score+=1;
 						
-						if(score == 3) winner = true; break;
+						if(score == 3) { winner = true; break;}
 					}
 				}catch(IndexOutOfBoundsException e) {}//do nothing
 			}
 		}
-		
 		return winner;
 	}
 

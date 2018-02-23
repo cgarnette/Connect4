@@ -1,9 +1,11 @@
 package connect4;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -136,7 +138,6 @@ public class Main extends JFrame{
 		playerInfo = new JPanel();
 		moved = false;
 		
-		
 		newContent.setLayout(new BoxLayout(newContent, BoxLayout.X_AXIS));
 		
 		playerInfo.setLayout(new BoxLayout(playerInfo, BoxLayout.Y_AXIS));
@@ -161,6 +162,7 @@ public class Main extends JFrame{
 		playerInfo.add(gameInfo);
 		newContent.add(gb);
 		newContent.add(playerInfo);
+		newContent.setBackground(Color.black);
 		
 		this.add(newContent);
 		
@@ -193,19 +195,25 @@ public class Main extends JFrame{
 		if(players[0].winner()) {
 			gameOver = true;
 			running = false;
-			playerInfo.remove(clock);
-			playerInfo.remove(gameInfo);
-			playerInfo.add(new JLabel(players[0].name + " Wins!"));
+			playerInfo.setBackground(players[0].c);
+			cleanup(playerInfo);
 		}else if(players[1].winner()) {
 			gameOver = true;
 			running = false;
-			playerInfo.remove(clock);
-			playerInfo.remove(gameInfo);
-			playerInfo.add(new JLabel(players[1].name + " Wins!"));
+			playerInfo.setBackground(players[1].c);
+			cleanup(playerInfo);
 		}
 		t.clicked = true;
 	}
 	
+	private void cleanup(JPanel panel) {
+		
+		for(int i = 0; i < panel.getComponentCount()+2; i++) {
+			panel.remove(0);
+		}
+		panel.repaint();
+		
+	}
 	public class GameBoard extends JPanel{
 		
 		/**
@@ -218,9 +226,12 @@ public class Main extends JFrame{
 			this.addMouseListener(new MouseAdapter() {
 				@Override
 			    public void mouseClicked(MouseEvent e) {
-					moved = true;
-					updateBoard(e.getX(), e.getY());
-			        repaint();
+					if(running) {
+						moved = true;
+						updateBoard(e.getX(), e.getY());
+						repaint();
+					}
+					
 			    }
 				
 			});
